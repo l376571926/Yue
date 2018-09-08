@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,7 +15,13 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.socks.library.KLog;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -49,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mBaseQuickAdapter);
         mBaseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -82,6 +86,14 @@ public class HomeActivity extends AppCompatActivity {
                 final List<User> allUsers = UserDatabase.get()
                         .getUserDao()
                         .getAllUsers();
+                InputStream inputStream = getResources().openRawResource(R.raw.user);
+
+                Type type = new TypeToken<List<User>>() {
+                }.getType();
+                List<User> userList = new Gson().fromJson(new InputStreamReader(inputStream), type);
+                allUsers.addAll(userList);
+                KLog.e();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
