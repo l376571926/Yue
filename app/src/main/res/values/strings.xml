@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Yue</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="app_name">约炮助手</string>
 
     <string name="address_place_holder">地址：%1$s</string>
     <string name="score_place_holder">评价：%1$s</string>
