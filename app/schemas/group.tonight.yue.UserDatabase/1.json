@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "965b0cd8ab213bbcf5fc77b7ac16c762",
+    "identityHash": "3c8b5f58426e9ef0ea327d5963adcf51",
     "entities": [
       {
         "tableName": "User",
@@ -65,11 +65,145 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Girl",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`girlId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `type` TEXT, `area` TEXT, `address` TEXT, `from` TEXT, `count` TEXT, `ageRange` TEXT, `suZhi` TEXT, `score` TEXT, `serviceItems` TEXT, `price` TEXT, `openTime` TEXT, `surroundings` TEXT, `safety` TEXT, `contactInfo` TEXT, `evaluate` TEXT, `description` TEXT, `createTime` INTEGER NOT NULL, `updateTime` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "girlId",
+            "columnName": "girlId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "area",
+            "columnName": "area",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "from",
+            "columnName": "from",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "count",
+            "columnName": "count",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ageRange",
+            "columnName": "ageRange",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "suZhi",
+            "columnName": "suZhi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "serviceItems",
+            "columnName": "serviceItems",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "openTime",
+            "columnName": "openTime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "surroundings",
+            "columnName": "surroundings",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "safety",
+            "columnName": "safety",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "contactInfo",
+            "columnName": "contactInfo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "evaluate",
+            "columnName": "evaluate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createTime",
+            "columnName": "createTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "girlId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"965b0cd8ab213bbcf5fc77b7ac16c762\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3c8b5f58426e9ef0ea327d5963adcf51\")"
     ]
   }
 }

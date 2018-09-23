@@ -1,8 +1,11 @@
 package group.tonight.yue;
 
 import android.app.Activity;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,21 +57,36 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setAdapter(mBaseQuickAdapter);
-        mBaseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                User user = mBaseQuickAdapter.getItem(position);
-                if (user == null) {
-                    return;
-                }
-                Intent intent = new Intent(HomeActivity.this, UserDetailActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-            }
-        });
+
+//        mRecyclerView.setAdapter(mBaseQuickAdapter);
+//        mBaseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                User user = mBaseQuickAdapter.getItem(position);
+//                if (user == null) {
+//                    return;
+//                }
+//                Intent intent = new Intent(HomeActivity.this, UserDetailActivity.class);
+//                intent.putExtra("user", user);
+//                startActivity(intent);
+//            }
+//        });
+
+        mRecyclerView.setAdapter(mGirlBaseQAdapter);
+//        mGirlBaseQAdapter.setOnItemClick();
+
 
         requestAllUser();
+
+        UserDatabase.get().getGirlDao().getAllUsersLiveData().observe(this, new Observer<List<Girl>>() {
+            @Override
+            public void onChanged(@Nullable List<Girl> girls) {
+                if (girls == null) {
+                    return;
+                }
+                mGirlBaseQAdapter.replaceData(girls);
+            }
+        });
     }
 
     @Override
@@ -80,28 +98,28 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void requestAllUser() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final List<User> allUsers = UserDatabase.get()
-                        .getUserDao()
-                        .getAllUsers();
-                InputStream inputStream = getResources().openRawResource(R.raw.user);
-
-                Type type = new TypeToken<List<User>>() {
-                }.getType();
-                List<User> userList = new Gson().fromJson(new InputStreamReader(inputStream), type);
-                allUsers.addAll(userList);
-                KLog.e();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBaseQuickAdapter.replaceData(allUsers);
-                    }
-                });
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final List<User> allUsers = UserDatabase.get()
+//                        .getUserDao()
+//                        .getAllUsers();
+//                InputStream inputStream = getResources().openRawResource(R.raw.user);
+//
+//                Type type = new TypeToken<List<User>>() {
+//                }.getType();
+//                List<User> userList = new Gson().fromJson(new InputStreamReader(inputStream), type);
+//                allUsers.addAll(userList);
+//                KLog.e();
+//
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mBaseQuickAdapter.replaceData(allUsers);
+//                    }
+//                });
+//            }
+//        }).start();
     }
 
     @Override
@@ -119,13 +137,21 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private BaseQuickAdapter<User, BaseViewHolder> mBaseQuickAdapter = new BaseQuickAdapter<User, BaseViewHolder>(R.layout.list_item_user) {
-        @Override
-        protected void convert(BaseViewHolder helper, User item) {
-            helper.setText(android.R.id.text1, "QQ：" + item.getQq());
-            helper.setText(android.R.id.text2, "微信：" + item.getWx());
+//    private BaseQuickAdapter<User, BaseViewHolder> mBaseQuickAdapter = new BaseQuickAdapter<User, BaseViewHolder>(R.layout.list_item_user) {
+//        @Override
+//        protected void convert(BaseViewHolder helper, User item) {
+//            helper.setText(android.R.id.text1, "QQ：" + item.getQq());
+//            helper.setText(android.R.id.text2, "微信：" + item.getWx());
+//
+//            helper.setText(R.id.remark, "备注：" + item.getRemark());
+//        }
+//    };
 
-            helper.setText(R.id.remark, "备注：" + item.getRemark());
+    private BaseQAdapter<Girl, ViewDataBinding, MVViewHolder> mGirlBaseQAdapter = new BaseQAdapter<Girl, ViewDataBinding, MVViewHolder>(R.layout.list_item_girl) {
+        @Override
+        protected void convert(MVViewHolder helper, Girl item) {
+            helper.getDataViewBinding().setVariable(group.tonight.yue.BR.girl, item);
         }
     };
+
 }
