@@ -20,6 +20,10 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven {
+            //指定Github上SDK项目的路径
+            url "https://github.com/tonightstudio/WorkbookHelperSDK/raw/master"
+        }
     }
 }
 

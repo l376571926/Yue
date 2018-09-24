@@ -70,5 +70,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation files('libs/jxl-2.6.12.jar')
+    implementation 'com.github.tonightstudio:workbookhelper:1.0'
 }
